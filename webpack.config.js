@@ -12,7 +12,9 @@ module.exports = {
         historyApiFallback: true
     },
     entry: {
-        app: path.resolve(__dirname, 'src/js/main.js')
+        app: path.resolve(__dirname, 'src/js/main.js'),
+        common: ['jquery']
+
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -74,6 +76,10 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin(),
-        new extractPlugin('css/[name].css')
+        new extractPlugin('css/[name].css'),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['common'],
+            filename: 'lib/common.js'
+        })
     ]
 }
